@@ -33,8 +33,7 @@ var path = {
     style: 'src/scss/**/*.scss',
     img: 'src/img/**/*.*',
     fonts: 'src/fonts/**/*.*'
-  },
-  clean: './build'
+  }
 }
 
 // Local server settings
