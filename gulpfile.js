@@ -8,23 +8,26 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload;
 
-// Переменная с указанием всех необходимых путей
+// Paths to files
 var path = {
-  build: { //Тут мы укажем куда складывать готовые после сборки файлы
+  // path to build files
+  build: {
     html: 'build/',
     js: 'build/js/',
     css: 'build/css/',
     img: 'build/img/',
     fonts: 'build/fonts/'
   },
-  src: { //Пути откуда брать исходники
-    html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-    js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
+  // source
+  src: {
+    html: 'src/*.html',
+    js: 'src/js/main.js',
     style: 'src/scss/main.scss',
-    img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+    img: 'src/img/**/*.*',
     fonts: 'src/fonts/**/*.*'
   },
-  watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
+  // watching files
+  watch: {
     html: 'src/**/*.html',
     js: 'src/js/**/*.js',
     style: 'src/scss/**/*.scss',
@@ -32,87 +35,82 @@ var path = {
     fonts: 'src/fonts/**/*.*'
   },
   clean: './build'
-};
+}
 
-// Настройки сервера
+// Local server settings
 var config = {
     server: {
-      baseDir: "./build"
+      baseDir: './build'
     },
     host: 'localhost',
     port: 9000
-};
+}
 
-// Запуск локального сервера
+// Initialization of local server
 gulp.task('webserver', function () {
-  browserSync(config);
-});
+  browserSync(config)
+})
 
-// Сборка html
+// Html task
 gulp.task('html:build', function () {
-  gulp.src(path.src.html) //Выберем файлы по нужному пути
-    // .pipe(rigger()) //Прогоним через rigger
-    .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
-    .pipe(reload({stream: true}));
-});
+  gulp.src(path.src.html)
+    // .pipe(rigger())
+    .pipe(gulp.dest(path.build.html))
+    .pipe(reload({stream: true}))
+})
 
-// Сборка css
+// Style task
 gulp.task('style:build', function () {
-  gulp.src(path.src.style) //Выберем наш main.scss
-    .pipe(sass().on('error', sass.logError)) //Скомпилируем
+  gulp.src(path.src.style)
+    .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
       browsers: ['Firefox >= 31', 'ie >= 9', 'Chrome >= 36', 'Safari >= 6', 'iOS >= 7', 'Android >= 4']
     }))
-    .pipe(cssmin()) //Сожмем
-    .pipe(gulp.dest(path.build.css)) //И в build
-    .pipe(reload({stream: true}));
-});
+    .pipe(cssmin())
+    .pipe(gulp.dest(path.build.css))
+    .pipe(reload({stream: true}))
+})
 
-// Сборка js
+// JS task
 gulp.task('js:build', function () {
-  gulp.src(path.src.js) //Найдем наш main файл
-    .pipe(rigger()) //Прогоним через rigger
-    .pipe(uglify()) //Сожмем наш js
-    .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
-    .pipe(reload({stream: true}));
-});
+  gulp.src(path.src.js)
+    .pipe(rigger())
+    .pipe(uglify())
+    .pipe(gulp.dest(path.build.js))
+    .pipe(reload({stream: true}))
+})
 
-// Оптимизация изображений
+// Images compression
 gulp.task('image:build', function () {
-  gulp.src(path.src.img) //Выберем наши картинки
+  gulp.src(path.src.img)
     .pipe(imagemin())
-    .pipe(gulp.dest(path.build.img)) //И бросим в build
-    .pipe(reload({stream: true}));
-});
+    .pipe(gulp.dest(path.build.img))
+    .pipe(reload({stream: true}))
+})
 
-// Копирование шрифтов в production-версию
-gulp.task('fonts:build', function() {
+// Copying fonts in build
+gulp.task('fonts:build', function () {
   gulp.src(path.src.fonts)
     .pipe(gulp.dest(path.build.fonts))
-});
+})
 
-// Задача Build
+// Build task
 gulp.task('build', [
   'html:build',
   'js:build',
   'style:build',
   'fonts:build',
   'image:build'
-]);
+])
 
-// // Очистка папки build
-// gulp.task('clean', function (cb) {
-//     rimraf(path.clean, cb);
-// });
-
-// Отслеживание изменений в файлах
-gulp.task('watch', function(){
-  gulp.watch(path.watch.html,['html:build'])
-  gulp.watch(path.watch.style,['style:build'])
-  gulp.watch(path.watch.js,['js:build'])
-  gulp.watch(path.watch.img,['image:build'])
-  gulp.watch(path.watch.fonts,['fonts:build'])
+// Watching changing in files
+gulp.task('watch', function () {
+  gulp.watch(path.watch.html, ['html:build'])
+  gulp.watch(path.watch.style, ['style:build'])
+  gulp.watch(path.watch.js, ['js:build'])
+  gulp.watch(path.watch.img, ['image:build'])
+  gulp.watch(path.watch.fonts, ['fonts:build'])
 })
 
-// Задача по умолчанию
-gulp.task('default', ['build', 'webserver', 'watch']);
+// Default task
+gulp.task('default', ['build', 'webserver', 'watch'])
