@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: $c-text-base;
+}
+
+a {
+  color: $c-link-base;
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $c-link-base;
+  }
+}

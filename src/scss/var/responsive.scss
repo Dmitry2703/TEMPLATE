@@ -1,0 +1,28 @@
+$min-width: 320px;
+$max-width: 1920px;
+
+$screens: (
+  mobile: (
+    min: 320px,
+    //max: 767px
+  ),
+  mobileOnly: (
+    min: 320px,
+    max: 767px
+  ),
+  tablet: (
+    min: 768px,
+    //max: 1023px
+  ),
+  desktop: (
+    min: 1024px,
+    //max: 1365px
+  ),
+  desktopM: (
+    min: 1366px,
+    //max: 1599px
+  ),
+  desktopL: (
+    min: 1600px
+  )
+);

@@ -1,0 +1,45 @@
+@function getMapNested($map, $a, $b) {
+  @if (type-of($a) != "string" or type-of($b) != "string") {
+    @error "getMapNested: arguments value should be a string.";
+    @return null;
+  }
+
+  @if (map_has_key($map, $a)) {
+    @return map_get(map_get($map, $a), $b);
+  } @else {
+    @error "map has no such key";
+    @return null;
+  }
+}
+
+@function screen($screen, $limit) {
+  @return getMapNested($screens, $screen, $limit);
+}
+
+$customBreakpoints: ();
+
+@mixin mediaQuery($bpts, $bpt) {
+  @if (map_has_key(map_get($bpts, $bpt), max)) {
+    @media only screen and (min-width: getMapNested($bpts, $bpt, min)) and (max-width: getMapNested($bpts, $bpt, max)) {
+      @content;
+    }
+  } @else {
+    @media only screen and (min-width: getMapNested($bpts, $bpt, min)) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpoint($bpt) {
+  @if (map_has_key($screens, $bpt)) {
+    @include mediaQuery($screens, $bpt) {
+      @content;
+    }
+  } @else if (map_has_key($customBreakpoints, $bpt)) {
+    @include mediaQuery($customBreakpoints, $bpt) {
+      @content;
+    }
+  } @else {
+    @error "No breakpoint named #{$bpt}";
+  }
+}
