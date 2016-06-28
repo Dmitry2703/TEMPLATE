@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     cssmin = require('gulp-clean-css'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -20,7 +21,7 @@ var path = {
   },
   // source
   src: {
-    html: 'src/*.html',
+    html: 'src/templates/**/*.jade',
     js: 'src/js/main.js',
     style: 'src/scss/main.scss',
     img: 'src/img/**/*.*',
@@ -28,7 +29,7 @@ var path = {
   },
   // watching files
   watch: {
-    html: 'src/**/*.html',
+    html: 'src/**/*.jade',
     js: 'src/js/**/*.js',
     style: 'src/scss/**/*.scss',
     img: 'src/img/**/*.*',
@@ -53,7 +54,9 @@ gulp.task('webserver', function () {
 // Html task
 gulp.task('html:build', function () {
   gulp.src(path.src.html)
-    // .pipe(rigger())
+    .pipe(jade({
+      pretty: true
+    }))
     .pipe(gulp.dest(path.build.html))
     .pipe(reload({stream: true}))
 })
