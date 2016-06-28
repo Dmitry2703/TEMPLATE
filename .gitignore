@@ -1,5 +1,4 @@
 _assets/
-bower_components
 node_modules
 build
 *.todo
