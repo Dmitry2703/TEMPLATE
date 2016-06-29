@@ -30,7 +30,7 @@ var path = {
     js: 'src/js/main.js',
     style: 'src/scss/main.scss',
     img: ['src/img/**/*.*', '!src/img/**/*.svg'],
-    svg: 'src/img/**/*.svg',
+    svg: 'src/img/decor/*.svg',
     fonts: 'src/fonts/**/*.*'
   },
   // watching files
@@ -39,7 +39,7 @@ var path = {
     js: 'src/js/**/*.js',
     style: 'src/scss/**/*.scss',
     img: ['src/img/**/*.*', '!src/img/**/*.svg'],
-    svg: 'src/img/**/*.svg',
+    svg: 'src/img/decor/*.svg',
     fonts: 'src/fonts/**/*.*'
   },
   clean: './build'
