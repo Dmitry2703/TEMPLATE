@@ -1,0 +1,1 @@
+//= lib/svg4everybody.js
