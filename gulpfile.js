@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     cssmin = require('gulp-clean-css'),
     autoprefixer = require('gulp-autoprefixer'),
-    rigger = require('gulp-rigger'),
+    webpack = require('webpack-stream'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     browserSync = require('browser-sync'),
@@ -43,7 +43,7 @@ var path = {
     fonts: 'src/fonts/**/*.*'
   },
   clean: './build'
-}
+};
 
 // Local server settings
 var config = {
@@ -52,25 +52,25 @@ var config = {
     },
     host: 'localhost',
     port: 9000
-}
+};
 
 // Initialization of local server
-gulp.task('webserver', function () {
-  browserSync(config)
-})
+gulp.task('webserver', function() {
+  browserSync(config);
+});
 
 // Html task
-gulp.task('html:build', function () {
+gulp.task('html:build', function() {
   gulp.src(path.src.html)
     .pipe(jade({
       pretty: true
     }))
     .pipe(gulp.dest(path.build.html))
-    .pipe(reload({stream: true}))
-})
+    .pipe(reload({stream: true}));
+});
 
 // Style task
-gulp.task('style:build', function () {
+gulp.task('style:build', function() {
   gulp.src(path.src.style)
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
@@ -78,28 +78,41 @@ gulp.task('style:build', function () {
     }))
     .pipe(cssmin())
     .pipe(gulp.dest(path.build.css))
-    .pipe(reload({stream: true}))
-})
+    .pipe(reload({stream: true}));
+});
 
-// JS task
-gulp.task('js:build', function () {
+// JS task (Webpack)
+gulp.task('js:build', function() {
+
+  var options = {
+    watch: true,
+    output: {
+      filename: 'main.js'
+    },
+    module: {
+      loaders: [{
+        test: /\.js$/,
+        loader: 'babel?presets[]=es2015'
+      }]
+    }
+  };
+
   gulp.src(path.src.js)
-    .pipe(rigger())
+    .pipe(webpack(options))
     .pipe(uglify())
-    .pipe(gulp.dest(path.build.js))
-    .pipe(reload({stream: true}))
-})
+    .pipe(gulp.dest(path.build.js));
+});
 
 // Images compression
-gulp.task('image:build', function () {
+gulp.task('image:build', function() {
   gulp.src(path.src.img)
     .pipe(imagemin())
     .pipe(gulp.dest(path.build.img))
-    .pipe(reload({stream: true}))
-})
+    .pipe(reload({stream: true}));
+});
 
 // SVG sprite creation
-gulp.task('svgSprite:build', function () {
+gulp.task('svgSprite:build', function() {
   gulp.src(path.src.svg)
   // minify svg
     .pipe(svgmin({
@@ -109,10 +122,10 @@ gulp.task('svgSprite:build', function () {
     }))
     // remove all fill, style and stroke declarations in out shapes
     .pipe(cheerio({
-      run: function ($) {
-        $('[fill]').removeAttr('fill')
-        $('[stroke]').removeAttr('stroke')
-        $('[style]').removeAttr('style')
+      run: function($) {
+        $('[fill]').removeAttr('fill');
+        $('[stroke]').removeAttr('stroke');
+        $('[style]').removeAttr('style');
       },
       parserOptions: {xmlMode: true}
     }))
@@ -132,14 +145,14 @@ gulp.task('svgSprite:build', function () {
         }
       }
     }))
-    .pipe(gulp.dest(path.build.img))
-})
+    .pipe(gulp.dest(path.build.img));
+});
 
 // Copying fonts in build
-gulp.task('fonts:build', function () {
+gulp.task('fonts:build', function() {
   gulp.src(path.src.fonts)
-    .pipe(gulp.dest(path.build.fonts))
-})
+    .pipe(gulp.dest(path.build.fonts));
+});
 
 // Build task
 gulp.task('build', [
@@ -149,22 +162,21 @@ gulp.task('build', [
   'fonts:build',
   'image:build',
   'svgSprite:build'
-])
+]);
 
 // Watching changing in files
-gulp.task('watch', function () {
-  gulp.watch(path.watch.html, ['html:build'])
-  gulp.watch(path.watch.style, ['style:build'])
-  gulp.watch(path.watch.js, ['js:build'])
-  gulp.watch(path.watch.img, ['image:build'])
-  gulp.watch(path.watch.svg, ['svgSprite:build'])
-  gulp.watch(path.watch.fonts, ['fonts:build'])
-})
+gulp.task('watch', function() {
+  gulp.watch(path.watch.html, ['html:build']);
+  gulp.watch(path.watch.style, ['style:build']);
+  gulp.watch(path.watch.img, ['image:build']);
+  gulp.watch(path.watch.svg, ['svgSprite:build']);
+  gulp.watch(path.watch.fonts, ['fonts:build']);
+});
 
 // Default task
-gulp.task('default', ['build', 'webserver', 'watch'])
+gulp.task('default', ['build', 'webserver', 'watch']);
 
 // Folder build deleting
-gulp.task('clean', function (cb) {
-  rimraf(path.clean, cb)
-})
+gulp.task('clean', function(cb) {
+  rimraf(path.clean, cb);
+});
