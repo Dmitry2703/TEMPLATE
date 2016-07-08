@@ -1,0 +1,20 @@
+//- Меню с подпунктами (subMenu)
+
+- var links = [ {link: '#', text: 'Home', subMenu: [{link: '#', text: 'Link1'}, {link: '#', text: 'Link2'}, {link: '#', text: 'Link3'}, {link: '#', text: 'Link4'}]}, {link: '#', text: 'Work', subMenu: [{link: '#', text: 'Link1'}, {link: '#', text: 'Link2'}, {link: '#', text: 'Link3'}, {link: '#', text: 'Link4'}]}, {link: '#', text: 'Contacts'}, {link: '#', text: 'About', subMenu: [{link: '#', text: 'Link1'}, {link: '#', text: 'Link2'}, {link: '#', text: 'Link3'}, {link: '#', text: 'Link4'}]}, ]
+
+a.menu-toggle.js-menu-toggle(
+  href = 'javascript:void(0)'
+  title = 'menu'
+)
+  span.menu-toggle__icon
+
+nav.menu
+  ul.menu__list
+    each item in links
+      li.menu__item
+        a.menu__link(href=item.link)= item.text
+        if item.subMenu
+          ul.submenu
+            each subItem in item.subMenu
+              li.submenu__item
+                a.submenu__link(href=subItem.link)= subItem.text
