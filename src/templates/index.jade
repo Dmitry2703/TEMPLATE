@@ -1,8 +1,25 @@
 extends components/layout
 
 include components/icons
+include components/popup
 
 block title
   title Page title
 
 block content
+  button(
+    data-toggle='popup'
+    data-target='popup1'
+  ) Показать попап1
+  button(
+    data-toggle='popup'
+    data-target='popup2'
+  ) Показать попап2
+  button(
+    data-toggle='popup'
+    data-target='popup3'
+  ) Показать попап3
+
+  +popup('popup1', 'Заголовок 1', 'Текст 1')
+  +popup('popup2', 'Заголовок 2', 'Текст 2')
+  +popup('popup3', 'Заголовок 3', 'Текст 3')

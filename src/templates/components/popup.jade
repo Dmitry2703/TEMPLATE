@@ -1,0 +1,7 @@
+mixin popup(id, header, text)
+  .popup(id=id)
+    .popup__body
+      span.popup__close
+      .popup__title=header
+      .popup__text=text
+      a.popup__btn(href='javascript:void(0)') ОК
