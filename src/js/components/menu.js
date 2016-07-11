@@ -14,7 +14,7 @@ class Menu {
     this.el = document.querySelector('.menu');
     this.toggle = document.querySelector('.js-menu-toggle');
     this._onClickOutside = this._onClickOutside.bind(this);
-    this.switchSubmenu = this.switchSubmenu.bind(this);
+    this._switchSubmenu = this._switchSubmenu.bind(this);
   }
 
   /**
@@ -35,7 +35,7 @@ class Menu {
     } else {
       document.addEventListener('touchstart', this._onClickOutside);
     }
-    this.el.addEventListener('click', this.switchSubmenu);
+    this.el.addEventListener('click', this._switchSubmenu);
   }
 
   hide() {
@@ -45,7 +45,7 @@ class Menu {
     } else {
       document.removeEventListener('touchstart', this._onClickOutside);
     }
-    this.el.removeEventListener('click', this.switchSubmenu);
+    this.el.removeEventListener('click', this._switchSubmenu);
   }
 
   /**
@@ -62,7 +62,7 @@ class Menu {
    * Открытие/закрытие подменю
    * @param  {Event} evt
    */
-  switchSubmenu(evt) {
+  _switchSubmenu(evt) {
     if (evt.target.classList.contains('menu__link')) {
       var submenuToShow = evt.target.nextElementSibling;
       if (submenuToShow) {
