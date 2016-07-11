@@ -21,9 +21,11 @@
 
 5) для поддержки IE подключается библиотека svg4everybody: src/js/lib/svg4everybody.js
 
-6) jade-миксин для вставки иконки из спрайта: src/templates/components/icons.jade
+6) необходимо вручную поместить svg4everybody.js в build/js и подключить его на страницу через тег script, а за ним вызвать svg4everybody();
 
-7) добавление иконки на страницу: +icon('icon name', 'icon modifier')
+7) jade-миксин для вставки иконки из спрайта: src/templates/components/icons.jade
+
+8) добавление иконки на страницу: +icon('icon name', 'icon modifier')
 
 
 Сборка js
