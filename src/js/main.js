@@ -1,1 +1,1 @@
-import './components/detect-touch';
+import './utils/detect-touch';
