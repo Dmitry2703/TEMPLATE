@@ -1,2 +1,2 @@
-import './components/detect-touch';
-import './components/popup';
+import './utils/detect-touch';
+import './components/popups';
