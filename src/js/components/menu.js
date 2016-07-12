@@ -5,7 +5,7 @@
 
 import '../lib/closest';
 
-class Menu {
+export default class Menu {
   /**
    * Класс Menu
    * @constructor
@@ -78,10 +78,3 @@ class Menu {
     }
   }
 }
-
-let menu = new Menu();
-
-let menuToggle = document.querySelector('.js-menu-toggle');
-menuToggle.addEventListener('click', function() {
-  menu.switch();
-});
