@@ -1,0 +1,116 @@
+.tabs {
+  position: relative;
+  color: #262626;
+  background: #f7f7f7;
+  border-bottom: solid 1px #ededed;
+
+  @include breakpoint(tablet) {
+    @include inlinefix();
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__item {
+    @include breakpoint(tablet) {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &.is-mobile-only {
+      @include breakpoint(tablet) {
+        display: none;
+      }
+    }
+  }
+
+  &__link {
+    position: relative;
+    display: inline-block;
+    padding: 1.8rem 3rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: #000;
+    text-decoration: none;
+    border: solid #f7f7f7;
+    border-width: 0 1px;
+    cursor: pointer;
+
+    &.is-active {
+      background: #fff;
+      border: solid #ededed;
+
+      @include breakpoint(tablet) {
+        border-width: 0 1px;
+
+        &:first-child {
+          border-width: 0 1px 0 0;
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #fff;
+      }
+    }
+
+    @include breakpoint(mobileOnly) {
+      display: block;
+      padding: 2rem;
+      background: #f6f6f6;
+      border: solid #ededed;
+      border-width: 0 0 1px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 2rem;
+        display: block;
+        width: 11px;
+        height: 7px;
+        transform: translateY(-50%);
+      }
+
+      &.is-active {
+        background: #fff;
+        border-width: 0;
+      }
+
+      &.is-active::after {
+        display: none;
+      }
+    }
+
+    @include breakpoint(tablet) {
+      text-align: center;
+
+      &:first-child {
+        border-width: 0 1px 0 0;
+      }
+    }
+  }
+}
+
+.tabs-pane {
+  display: none;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  background: #efefef;
+
+  &.is-active {
+    display: block;
+  }
+
+  p {
+    margin: 0;
+  }
+}

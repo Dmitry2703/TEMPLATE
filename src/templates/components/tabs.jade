@@ -1,0 +1,37 @@
+- var tabs = [ {tab: 'tab1', text: 'Tab 1'}, {tab: 'tab2', text: 'Tab 2'}, {tab: 'tab3', text: 'Tab 3'}]
+
+ul.tabs.is-mobile-not
+  each item, index in tabs
+    li.tabs__item
+      a.tabs__link(
+        href='javascript:void(0)'
+        data-tab=item.tab
+        class=index == 0 ? 'is-active' : ''
+      )=item.text
+
+.tabs__item.is-mobile-only
+  a.tabs__link.is-active(
+      href='javascript:void(0)'
+      data-tab='tab1'
+    ) Tab 1
+.tabs-pane.is-active#tab1
+  p Content of tab 1
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor soluta sunt, possimus fugiat rem unde sit quia accusamus aperiam cupiditate corporis accusantium, maiores obcaecati nam adipisci, temporibus veniam doloribus natus.
+
+.tabs__item.is-mobile-only
+  a.tabs__link(
+      href='javascript:void(0)'
+      data-tab='tab2'
+    ) Tab 2
+.tabs-pane#tab2
+  p Content of tab 2
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor soluta sunt, possimus fugiat rem unde sit quia accusamus aperiam cupiditate corporis accusantium, maiores obcaecati nam adipisci, temporibus veniam doloribus natus.
+
+.tabs__item.is-mobile-only
+  a.tabs__link(
+      href='javascript:void(0)'
+      data-tab='tab3'
+    ) Tab 3
+.tabs-pane#tab3
+  p Content of tab 3
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor soluta sunt, possimus fugiat rem unde sit quia accusamus aperiam cupiditate corporis accusantium, maiores obcaecati nam adipisci, temporibus veniam doloribus natus.

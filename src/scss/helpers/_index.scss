@@ -11,3 +11,19 @@
 .pull-right {
   float: right;
 }
+
+.is-mobile-only {
+  display: none;
+
+  @include breakpoint(mobileOnly) {
+    display: block;
+  }
+}
+
+.is-mobile-not {
+  display: none;
+
+  @include breakpoint(tablet) {
+    display: block;
+  }
+}
