@@ -1,0 +1,72 @@
+// add to HTML tag
+.tooltip-open {
+  @include breakpoint(mobileOnly) {
+    overflow: hidden;
+  }
+}
+
+._open > .tooltip,
+._open > .tooltip-overlay {
+  display: block;
+}
+
+._open > .tooltip-overlay {
+  @include breakpoint(tablet) {
+    display: none;
+  }
+}
+
+.tooltip {
+  display: none;
+  cursor: default;
+
+  @include breakpoint(mobileOnly) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgba(0,0,0,0.5);
+    transform: none;
+    cursor: default;
+  }
+
+  @include breakpoint(tablet) {
+    @include center-x();
+    position: absolute;
+    top: 110%;
+    white-space: nowrap;
+  }
+
+  &__inner {
+    display: block;
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    text-align: left;
+    color: #666;
+    background: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+    @include breakpoint(mobileOnly) {
+      @include center-y();
+      position: absolute;
+      right: 1rem;
+      left: 1rem;
+      z-index: 1001;
+    }
+  }
+}
+
+.element-with-tooltip {
+  position: relative;
+  border-bottom: 2px dotted red;
+  cursor: pointer;
+}
+
+.no-touch .element-with-tooltip:hover .tooltip {
+  display: block;
+}

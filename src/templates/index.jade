@@ -1,8 +1,11 @@
 extends components/layout
 
 include components/icons
+include components/tooltips
 
 block title
   title Page title
 
 block content
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt nostrum minus expedita laboriosam, voluptates velit ipsum doloremque, #[span.element-with-tooltip sapiente #[+tooltip('Tooltip Text 1')]] quidem, beatae ex eaque porro tempore ut ratione! Explicabo consectetur, dignissimos sint!
+  p Lorem ipsum dolor sit amet, consectetur adipisicing #[span.element-with-tooltip elit #[+tooltip('Tooltip Text 2')]]. Doloremque incidunt, harum architecto repellat reprehenderit excepturi ipsam omnis ad vel totam eius porro deserunt id, natus velit vero recusandae quas quis!
