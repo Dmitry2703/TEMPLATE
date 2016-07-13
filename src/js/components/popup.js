@@ -7,12 +7,12 @@ export default class Popup {
   /**
    * Класс Popup
    * @constructor
-   * @param  {string} id
+   * @param  {HTMLElement} element
    */
-  constructor(id) {
-    this.id = id;
-    this.overlay = document.querySelector('#' + id + '.popup');
-    this._closeButton = this.overlay.querySelector('.popup__close');
+  constructor(element) {
+    this.element = element;
+    this.id = this.element.id;
+    this._closeButton = this.element.querySelector('.popup__close');
     this._onCloseClick = this._onCloseClick.bind(this);
     this._onDocumentKeyDown = this._onDocumentKeyDown.bind(this);
     this._onClickOutside = this._onClickOutside.bind(this);
@@ -23,7 +23,7 @@ export default class Popup {
    */
   show() {
     document.documentElement.classList.add('popup-open');
-    this.overlay.classList.add('open');
+    this.element.classList.add('open');
     this._closeButton.addEventListener('click', this._onCloseClick);
     window.addEventListener('keydown', this._onDocumentKeyDown);
     if (document.documentElement.classList.contains('no-touch')) {
@@ -38,7 +38,7 @@ export default class Popup {
    */
   hide() {
     document.documentElement.classList.remove('popup-open');
-    this.overlay.classList.remove('open');
+    this.element.classList.remove('open');
     this._closeButton.removeEventListener('click', this._onCloseClick);
     window.removeEventListener('keydown', this._onDocumentKeyDown);
     if (document.documentElement.classList.contains('no-touch')) {
@@ -54,8 +54,9 @@ export default class Popup {
    * @private
    */
   _onClickOutside(evt) {
-    if (evt.target === this.overlay) {
+    if (evt.target === this.element) {
       this.hide();
+      evt.preventDefault();
     }
   }
 

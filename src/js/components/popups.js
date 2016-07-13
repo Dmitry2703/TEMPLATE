@@ -5,11 +5,11 @@
 
 import Popup from './popup';
 
-let popupToggles = document.querySelectorAll('[data-toggle="popup"]');
-popupToggles = Array.prototype.slice.call(popupToggles);
+let popups = document.querySelectorAll('.popup');
+popups = Array.prototype.slice.call(popups);
 
-let popups = popupToggles.map(function(item) {
-  return new Popup(item.getAttribute('data-target'));
+popups = popups.map(function(item) {
+  return new Popup(item);
 });
 
 document.addEventListener('click', function(evt) {
