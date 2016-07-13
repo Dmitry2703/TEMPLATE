@@ -5,11 +5,11 @@
 
 import Tooltip from './tooltip';
 
-let tooltipsParents = document.querySelectorAll('.element-with-tooltip');
-tooltipsParents = Array.prototype.slice.call(tooltipsParents);
+let tooltips = document.querySelectorAll('.tooltip');
+tooltips = Array.prototype.slice.call(tooltips);
 
-let tooltips = tooltipsParents.map(function(item) {
-  return new Tooltip(item.lastElementChild);
+tooltips = tooltips.map(function(item) {
+  return new Tooltip(item);
 });
 
 // touch-devices
