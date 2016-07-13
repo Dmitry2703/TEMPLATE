@@ -1,7 +1,6 @@
 html, body {
   min-width: $min-width;
   height: 100%;
-  min-height: 100%;
   background-color: $c-bg-base;
   -webkit-tap-highlight-color: transparent; // disable blicking when click on links in iOS
 }
@@ -9,6 +8,5 @@ html, body {
 .page-wrapper {
   min-width: $min-width;
   max-width: $max-width;
-  min-height: 100%;
   margin: 0 auto;
 }
